@@ -1,10 +1,13 @@
-FROM python:latest
+FROM python:3.12.3
 
-WORKDIR /app/src
+WORKDIR /app
 
-# COPY requirements.txt ./
-COPY main.py ./
+COPY requirements.txt .
 
-# RUN pip installation --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-CMD [ "python", "./main.py" ]
+COPY . .
+
+EXPOSE 5001
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
